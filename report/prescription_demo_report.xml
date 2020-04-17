@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+        <template id="basic_hms.prescription_demo_report_template">
+			<t t-call="web.html_container">
+				<div class="page">
+					<div class="oe_structure"/>
+					<br/><br/>
+					<table class="table table-condensed" style="table-layout:fixed">
+					<tr >
+						<td width="80"> <strong> Paciente: </strong> </td>
+						<td width="630"> <span t-field="doc.patient_id"/> </td>
+						<td width="60"> <strong> Fecha: </strong> </td>
+						<td width="100"> <span t-field="doc.prescription_date" t-options='{"format": "dd/MM/yyyy"}'/> </td>
+					</tr>
+					</table>
+					<br/><br/>
+
+					<div class="row">
+						<table class="table table-condensed" style="table-layout:fixed">
+							<tr align="center">
+							<th width="50"> Cantidad</th>
+							<th width="350"> Medicamento</th>
+							<th width="120"> Inicia</th>
+							<th width="120"> Termina</th>
+							<th width="230"> Frecuencia</th>
+							</tr>
+						</table>
+							<table class="table table-condensed" style="table-layout:fixed">
+								<t t-foreach="doc.prescription_line_ids" t-as="test">
+									<tr align="center">
+									<td t-if="test.quantity">
+										<td width="50">
+											<span t-field="test.quantity"/>
+										</td>
+									</td>
+									<td t-if="test.medicament_id">
+										<td width="350">
+											<span t-field="test.medicament_id"/>
+										</td>
+									</td>
+									<td t-if="test.start_treatment" >
+										<td width="120">
+											<span t-field="test.start_treatment" t-options='{"format": "dd/MM/yyyy"}'/>
+										</td>
+									</td>
+									<td t-if="test.end_treatment">
+										<td width="120">
+											<span t-field="test.end_treatment" t-options='{"format": "dd/MM/yyyy"}'/>
+										</td>
+									</td>
+
+									<td t-if="test.frequency">
+										<td width="230">
+											<span t-field="test.frequency"/> Cada
+											<span t-field="test.frequency_unit"/>
+										</td>
+									</td>
+									</tr>
+								</t>
+
+						</table>
+					</div>
+					<br>
+					</br>
+					<div class="row mt32 mb32" id="informations">
+						<div class="col-xs-3">
+							<strong>Notas:</strong>
+							<span t-field="doc.notes"/>
+						</div>
+
+					</div>
+				</div>
+
+			</t>
+        </template>
+        <template id="prescription_demo_report">
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="doc">
+                    <t t-call="basic_hms.prescription_demo_report_template" t-lang="doc.doctor_id.partner_id.lang"/>
+                    </t>
+                </t>
+        </template>
+</openerp>
