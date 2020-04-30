@@ -14,11 +14,11 @@ class medical_appointment(models.Model):
 	is_invoiced = fields.Boolean(copy=False,default = False)
 	institution_partner_id = fields.Many2one('res.partner',domain=[('is_institution','=',True)],string="Health Center")
 	inpatient_registration_id = fields.Many2one('medical.inpatient.registration',string="Inpatient Registration")
-	patient_status = fields.Selection([
-			('ambulatory', 'Ambulatory'),
-			('outpatient', 'Outpatient'),
-			('inpatient', 'Inpatient'),
-		], 'Patient status', sort=False,default='outpatient')
+	estudio = fields.Selection([
+		('portatil', 'Portatil'),
+		('consultorio', 'Consultorio'),
+		('hospital', 'Hospital'),
+	], 'estudio', sort=False, default='portatil', required=True)
 	patient_id = fields.Many2one('medical.patient','Patient',required=True)
 	urgency_level = fields.Selection([
 			('a', 'Normal'),
