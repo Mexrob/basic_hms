@@ -18,7 +18,8 @@ class medical_appointment(models.Model):
 		('portatil', 'Portatil'),
 		('consultorio', 'Consultorio'),
 		('hospital', 'Hospital'),
-	], 'estudio', sort=False, default='portatil', required=True)
+	], 'Estudio', sort=False, default='portatil', required=True)
+	patient_id = fields.Many2one('medical.patient', 'Patient', required=True)
 	patient_id = fields.Many2one('medical.patient','Patient',required=True)
 	urgency_level = fields.Selection([
 			('a', 'Normal'),
@@ -127,5 +128,3 @@ class medical_appointment(models.Model):
 			 raise UserError(_(' The Appointment is invoice exempt'))
 		return result
 
-		
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
